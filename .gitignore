@@ -4,6 +4,7 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # User-specific files
+.vscode/
 *.rsuser
 *.suo
 *.user
@@ -361,3 +362,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Ignorar appsettings.json
+appsettings.json
+
+# Ignorar a pasta wwwroot
+wwwroot/
