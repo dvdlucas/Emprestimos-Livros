@@ -33,6 +33,7 @@ namespace Emprestimos_Livros.Controllers
                 _context.Emprestimos.Add(emprestimo);
                 _context.SaveChanges();
 
+                TempData["MensagemSucesso"] = "Cadastro Realizado com Sucesso";
                 return RedirectToAction("Index");
             }
 
@@ -67,9 +68,10 @@ namespace Emprestimos_Livros.Controllers
             {
                 _context.Emprestimos.Update(emprestimo);
                 _context.SaveChanges();
-
+                TempData["MensagemSucesso"] = "Edição Realizada com Sucesso";
                 return RedirectToAction("Index");
             }
+            TempData["MensagemErro"] = "Algum erro ocorreu, contate um administrador";
 
             return View(emprestimo);
 
@@ -104,7 +106,8 @@ namespace Emprestimos_Livros.Controllers
             }
                 _context.Emprestimos.Remove(emprestimo);
                 _context.SaveChanges();
-                return RedirectToAction("Index");
+                TempData["MensagemSucesso"] = "Exclusão Realizada com Sucesso";
+            return RedirectToAction("Index");
             
         }
   
