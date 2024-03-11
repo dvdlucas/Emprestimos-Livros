@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    $('#Emprestimos').DataTable({
+    $('#Tabelas').DataTable({
         language: 
             {
             "decimal": "",

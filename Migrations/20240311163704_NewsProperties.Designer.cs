@@ -4,6 +4,7 @@ using Emprestimos_Livros.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Emprestimos_Livros.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240311163704_NewsProperties")]
+    partial class NewsProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,12 +73,7 @@ namespace Emprestimos_Livros.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Livros");
                 });
@@ -115,7 +112,7 @@ namespace Emprestimos_Livros.Migrations
             modelBuilder.Entity("Emprestimos_Livros.Models.EmprestimosModelcs", b =>
                 {
                     b.HasOne("Emprestimos_Livros.Models.UsuarioModel", "Fornecedor")
-                        .WithMany()
+                        .WithMany("EmprestimosFornecidos")
                         .HasForeignKey("FornecedorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -127,7 +124,7 @@ namespace Emprestimos_Livros.Migrations
                         .IsRequired();
 
                     b.HasOne("Emprestimos_Livros.Models.UsuarioModel", "Recebedor")
-                        .WithMany()
+                        .WithMany("EmprestimosRecebidos")
                         .HasForeignKey("RecebedorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -141,23 +138,14 @@ namespace Emprestimos_Livros.Migrations
 
             modelBuilder.Entity("Emprestimos_Livros.Models.LivroModel", b =>
                 {
-                    b.HasOne("Emprestimos_Livros.Models.UsuarioModel", "Usuario")
-                        .WithMany("Livros")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("Emprestimos_Livros.Models.LivroModel", b =>
-                {
                     b.Navigation("Emprestimos");
                 });
 
             modelBuilder.Entity("Emprestimos_Livros.Models.UsuarioModel", b =>
                 {
-                    b.Navigation("Livros");
+                    b.Navigation("EmprestimosFornecidos");
+
+                    b.Navigation("EmprestimosRecebidos");
                 });
 #pragma warning restore 612, 618
         }

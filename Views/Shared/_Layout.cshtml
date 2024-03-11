@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Emprestimos Livros</title>
+    <title>@ViewData["Title"] - Biblioteca Tech</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/bootstrap.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Emprestimos_Livros.styles.css" asp-append-version="true" />
@@ -15,7 +15,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">Emprestimos Tech</a>
+                <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">Biblioteca Tech</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -26,7 +26,13 @@
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-house-fill mx-2"></i>Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Emprestimos" asp-action="Index"><i class="bi bi-journals"></i> Emprestimos</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Usuarios" asp-action="Index"><i class="bi bi-people mx-2"></i> Usuarios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Livros" asp-action="Index"><i class="bi bi-book mx-2"></i> Livros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Emprestimos" asp-action="Index"><i class="bi bi-journals mx-2"></i> Emprestimos</a>
                         </li>
                     </ul>
                 </div>
@@ -41,7 +47,7 @@
 
     <footer class="border-top footer text-muted bg-dark">
         <div class="container text-light">
-            &copy; 2024 - Emprestimos Livros - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - Emprestimos Online - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

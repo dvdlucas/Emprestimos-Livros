@@ -20,7 +20,7 @@ namespace Emprestimos_Livros.Services
 
         public EmprestimosModelcs AdicionarEmprestimo(EmprestimosModelcs emprestimo)
         {
-            if (emprestimo.LivroEmprestado != null && emprestimo.Recebedor != null && emprestimo.Fornecedor != null)
+            if (emprestimo.Livro != null && emprestimo.Recebedor != null && emprestimo.Fornecedor != null)
             {
                 return _emprestimosRepository.Adicionar(emprestimo);
             }

@@ -15,6 +15,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<EmprestimosService>();
 
+builder.Services.AddScoped<UsuariosServices>();
+builder.Services.AddScoped<UsuariosRepository>();
+builder.Services.AddScoped<LivrosRepository>();
+builder.Services.AddScoped<LivrosService>();
 builder.Services.AddScoped<EmprestimosRepository>();
 
 var app = builder.Build();

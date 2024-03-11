@@ -7,15 +7,16 @@ namespace Emprestimos_Livros.Models
         [Key]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Digite o nome do Recebedor ! ")]
-        public string Recebedor { get; set; }
+        public int LivroId { get; set; }
+        public LivroModel Livro { get; set; }
 
-        [Required(ErrorMessage = "Digite o nome do Fornecedor ! ")]
-        public string Fornecedor { get; set; }
+        public int FornecedorId { get; set; }
+        public UsuarioModel Fornecedor { get; set; }
 
-        [Required(ErrorMessage = "Digite o nome do Livro Emprestado ! ")]
-        public string LivroEmprestado { get; set; }
+        public int RecebedorId { get; set; }
+        public UsuarioModel Recebedor { get; set; }
 
-        public DateTime DataUltimaAtualizacao { get; set; } = DateTime.Now;
+        public DateTime DataEmprestimo { get; set; }
+        public DateTime? DataDevolucao { get; set; }
     }
 }

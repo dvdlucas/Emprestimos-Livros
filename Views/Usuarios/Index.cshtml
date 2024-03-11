@@ -1,0 +1,56 @@
+﻿@model IEnumerable<UsuarioModel>
+
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-5" >
+            <h1>Usuários</h1>
+            <a class="btn btn-success mx-2" asp-controller="Usuarios" asp-action="Cadastrar"><i class="bi bi-person-add"></i> Cadastrar novo Usuário</a>
+        </div>
+
+    @if(TempData["MensagemSucesso"] != null)
+    {
+        <div class="alert alert-success text-light" role="alert">
+            @TempData["MensagemSucesso"]
+        </div>
+    }
+
+       @if(TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-danger text-light" role="alert">
+            @TempData["MensagemErro"]
+        </div>
+    }
+
+
+
+    <table id="Tabelas" class="table table-light table-hover mt-5">
+         <thead>
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Telefone</th>
+                <th scope="col">Email</th>
+                <th scope="col">Ativo</th>
+                <th scope="col">Ùltima Atualização</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model != null)
+            {
+                @foreach (var usuario in Model)
+                {
+                <tr>
+                     <th scope="row">@usuario.Name</th>
+                     <td>@usuario.Phone</td>
+                     <td>@usuario.Email</td>
+                     <td>@usuario.IsActive</td>
+                     <td>@usuario.DataUltimaAtualizacao</td>
+                     <td>
+                         <a class="btn btn-warning mx-2 p-1" asp-controller="Usuarios" asp-action="Editar" asp-route-id="@usuario.Id"><i class="bi bi-person-fill-gear"></i> Editar</a>
+                         <a class="btn btn-danger mx-2" asp-controller="Usuarios" asp-action="Excluir" asp-route-id="@usuario.Id"><i class="bi bi-person-dash"></i>Excluir</a>
+                     </td>
+                 </tr>
+                }
+            }
+        </tbody>
+    </table>
+     </div>
