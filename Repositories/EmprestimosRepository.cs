@@ -38,6 +38,12 @@ namespace Emprestimos_Livros.Repositories
             return emprestimos;
         }
 
+        public EmprestimosModelcs GetById(int? id)
+        {
+            EmprestimosModelcs emprestimo = _context.Emprestimos.FirstOrDefault(x => x.Id == id);
+            return emprestimo;
+        }
+
 
     }
 }

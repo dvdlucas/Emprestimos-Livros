@@ -1,21 +1,22 @@
 ﻿using Emprestimos_Livros.Data;
 using Emprestimos_Livros.Models;
+using Emprestimos_Livros.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Emprestimos_Livros.Controllers
 {
     public class EmprestimosController : Controller
     {
-        readonly private ApplicationDbContext _context;
-        public EmprestimosController(ApplicationDbContext db)
+        readonly private EmprestimosService _serviceEmprestimo;
+   
+        public EmprestimosController(EmprestimosService serviceEmprestimo)
         {
-            _context = db;
+            _serviceEmprestimo = serviceEmprestimo;
         }
 
         public IActionResult Index()
         {
-            IEnumerable<EmprestimosModelcs> emprestimos = _context.Emprestimos;
+            IEnumerable<EmprestimosModelcs> emprestimos = _serviceEmprestimo.GetAllEmprestimos();
             return View(emprestimos);
         }
 
@@ -28,37 +29,30 @@ namespace Emprestimos_Livros.Controllers
         [HttpPost]
         public IActionResult Cadastrar(EmprestimosModelcs emprestimo)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Emprestimos.Add(emprestimo);
-                _context.SaveChanges();
-
-                TempData["MensagemSucesso"] = "Cadastro Realizado com Sucesso";
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    _serviceEmprestimo.AdicionarEmprestimo(emprestimo);
+                    TempData["MensagemSucesso"] = "Cadastro Realizado com Sucesso";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                TempData["MensagemErro"] = ex.Message;
             }
 
             return View();
-
         }
 
-        
+
+
         [HttpGet]
         public IActionResult Editar(int? id)
         {
-            if(id == null || id == 0)
-            {
-                return NotFound();
-            }
-
-            EmprestimosModelcs emprestimo = _context.Emprestimos.FirstOrDefault(x => x.Id == id);
-
-            if(emprestimo == null)
-            {
-                return NotFound();
-            }
-
+            EmprestimosModelcs emprestimo = _serviceEmprestimo.GetByIdService(id);
             return View(emprestimo);
-
         }
 
         [HttpPost]
@@ -66,8 +60,7 @@ namespace Emprestimos_Livros.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Emprestimos.Update(emprestimo);
-                _context.SaveChanges();
+                _serviceEmprestimo.EditarEmprestimoService(emprestimo);
                 TempData["MensagemSucesso"] = "Edição Realizada com Sucesso";
                 return RedirectToAction("Index");
             }
@@ -80,35 +73,24 @@ namespace Emprestimos_Livros.Controllers
         [HttpGet]
         public IActionResult Excluir(int? id)
         {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-
-            EmprestimosModelcs emprestimo = _context.Emprestimos.FirstOrDefault(x => x.Id == id);
-
-            if (emprestimo == null)
-            {
-                return NotFound();
-            }
-
+            EmprestimosModelcs emprestimo = _serviceEmprestimo.GetByIdService(id);
             return View(emprestimo);
         }
-
 
 
         [HttpPost]
         public IActionResult Excluir(EmprestimosModelcs emprestimo)
         {
-           if(emprestimo == null)
+            try
             {
-                return NotFound();
-            }
-                _context.Emprestimos.Remove(emprestimo);
-                _context.SaveChanges();
+                _serviceEmprestimo.RemoverEmprestimoService(emprestimo);
                 TempData["MensagemSucesso"] = "Exclusão Realizada com Sucesso";
-            return RedirectToAction("Index");
-            
+                return RedirectToAction("Index");
+            } catch(InvalidOperationException ex)
+            {
+                TempData["MensagemErro" ]= ex.Message;
+            }
+            return View();
         }
   
     }
