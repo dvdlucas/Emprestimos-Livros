@@ -27,11 +27,11 @@ namespace Emprestimos_Livros.Controllers
         [HttpPost]
         public IActionResult Cadastrar(UsuarioModel usuario)
         {
-  
-             _services.CadastrarUsuarioService(usuario);
-             TempData["MensagemSucesso"] = "Cadastro Realizado com Sucesso";
-             return RedirectToAction("Index");
-                
+
+            _services.CadastrarUsuarioService(usuario);
+            TempData["MensagemSucesso"] = "Cadastro Realizado com Sucesso";
+            return RedirectToAction("Index");
+
         }
 
         [HttpGet]
@@ -57,7 +57,7 @@ namespace Emprestimos_Livros.Controllers
             return View();
         }
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult Editar(UsuarioModel usuario)
         {
             try
@@ -72,9 +72,5 @@ namespace Emprestimos_Livros.Controllers
             }
             return View();
         }
-    }
-
-
-
     }
 }

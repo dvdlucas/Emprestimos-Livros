@@ -1,0 +1,24 @@
+﻿@model LivroModel
+@{
+    ViewData["title"] = "Editar Livro";
+}
+
+<div class="container bg-dark p-5 rounded-5">
+    <div class="mb-5 text-center">
+        <h1 class="text-light">Editar Livro</h1>
+    </div>
+<form method="post" asp-controller="Livros" asp-action="Editar">
+
+      <input type="hidden" asp-for="Id"/>
+                <div class="mb-3">
+                    <label for="Titulo" class="form-label text-light">Titulo:</label>
+                    <input type="text" class="form-control text-light" asp-for="Titulo" id="nome" placeholder="">
+                    <span  class="text-danger" asp-validation-for="Titulo"></span>
+                </div>
+
+        <div class="d-flex gap-5 mt-5">
+        <button type="submit" class="btn btn-success w-50">Salvar</button>
+        <a class="btn btn-primary w-50" asp-controller="Livros" asp-action="Index">Voltar</a>
+    </div>
+</form>
+</div>

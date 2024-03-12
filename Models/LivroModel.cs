@@ -10,7 +10,7 @@ namespace Emprestimos_Livros.Models
         [Required(ErrorMessage = "Digite o nome do Livro ! ")]
         public string Titulo { get; set; }
 
-        public Boolean Emprestado { get; set; }
+        public Boolean Emprestado { get; set; } = false;
 
         public int UsuarioId { get; set; }
         public UsuarioModel Usuario { get; set; }

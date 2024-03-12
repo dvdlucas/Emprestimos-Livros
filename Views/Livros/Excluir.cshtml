@@ -1,0 +1,37 @@
+﻿@model LivroModel
+@{
+    ViewData["title"] = "Excluir Livros";
+}
+
+<div class="container bg-dark p-5 rounded-5">
+    <div class="mb-5 text-center">
+        <h1 class="text-light">Exclusão de Livros</h1>
+    </div>
+<form method="post" asp-controller="Livros" asp-action="Excluir">
+
+    <h2 class="text-light">Tem certeza que deseja excluir o registro abaixo ? </h2>
+      <input type="hidden" asp-for="Id"/>
+                <div class="mb-3">
+                    <label for="Titulo" class="form-label text-light">Título:</label>
+                    <input type="text" class="form-control text-light" asp-for="Titulo" id="nome" disabled>
+                    <span  class="text-danger" asp-validation-for="Titulo"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label for="Proprietário" class="form-label text-light">Proprietário:</label>
+                    <input type="text" class="form-control text-light" asp-for="Usuario.Name" id="UsuarioId" disabled>
+                    <span  class="text-danger" asp-validation-for="Usuario"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label for="Emprestado" class="form-label text-light">Emprestado:</label>
+                <input type="text" class="form-control text-light" asp-for="Emprestado" id="Emprestado" disabled>
+                <span class="text-danger" asp-validation-for="Emprestado"></span>
+            </div>
+        <div class="d-flex gap-5 mt-5">
+        <button type="submit" class="btn btn-danger w-50">Excluir</button>
+        <a class="btn btn-primary w-50" asp-controller="Livros" asp-action="Index">Voltar</a>
+    </div>
+</form>
+</div>
+

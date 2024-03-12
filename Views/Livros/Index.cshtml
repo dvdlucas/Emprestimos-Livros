@@ -38,7 +38,7 @@
                 {
                 <tr>
                      <th scope="row">@livros.Titulo</th>
-                     <td>@livros.Id</td>
+                     <td>@livros.Usuario.Name</td>
                      <td>@livros.Emprestado</td>
                      <td>
                          <a class="btn btn-warning mx-2 p-1" asp-controller="Livros" asp-action="Editar" asp-route-id="@livros.Id"><i class="bi bi-journal-medical"></i> Editar</a>
