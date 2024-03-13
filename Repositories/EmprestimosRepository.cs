@@ -1,5 +1,6 @@
 ﻿using Emprestimos_Livros.Data;
 using Emprestimos_Livros.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Emprestimos_Livros.Repositories
 {
@@ -14,7 +15,7 @@ namespace Emprestimos_Livros.Repositories
 
         public List<EmprestimosModelcs> BuscarTodos()
         {
-            return _context.Emprestimos.ToList();
+            return _context.Emprestimos.Include(l => l.Fornecedor).Include(l => l.Recebedor).Include(c => c.Livro).ToList();
         }
 
         public EmprestimosModelcs Adicionar(EmprestimosModelcs emprestimo)
@@ -40,8 +41,8 @@ namespace Emprestimos_Livros.Repositories
 
         public EmprestimosModelcs GetById(int? id)
         {
-            EmprestimosModelcs emprestimo = _context.Emprestimos.FirstOrDefault(x => x.Id == id);
-            return emprestimo;
+            return _context.Emprestimos.Include(r => r.Recebedor).Include(f => f.Fornecedor).Include(l => l.Livro).FirstOrDefault(x => x.Id == id);
+        
         }
 
 

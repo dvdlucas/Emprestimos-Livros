@@ -15,7 +15,16 @@
                     <input type="text" class="form-control text-light" asp-for="Titulo" id="nome" placeholder="">
                     <span  class="text-danger" asp-validation-for="Titulo"></span>
                 </div>
-
+                <div class="mb-3">
+                    <label for="Usuario" class="form-label text-dark">Usuário:</label>
+                    <select class="form-control text-light" asp-for="UsuarioId" id="usuario">
+                        @foreach (var usuario in ViewBag.Usuarios)
+                        {
+                            <option value="@usuario.Id">@usuario.Name</option>
+                        }
+                    </select>
+                    <span class="text-danger" asp-validation-for="UsuarioId"></span>
+                </div>
         <div class="d-flex gap-5 mt-5">
         <button type="submit" class="btn btn-success w-50">Salvar</button>
         <a class="btn btn-primary w-50" asp-controller="Livros" asp-action="Index">Voltar</a>

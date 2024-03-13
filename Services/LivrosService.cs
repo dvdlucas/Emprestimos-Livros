@@ -31,8 +31,6 @@ namespace Emprestimos_Livros.Services
                 {
                     throw new InvalidOperationException("Usuário não encontrado. Certifique-se de fornecer um usuário válido.");
                 }
-
-                // Adicione o livro
                 return _livrosRepository.CadastrarLivroRepository(livro);
             }
             else
@@ -64,7 +62,21 @@ namespace Emprestimos_Livros.Services
 
         public LivroModel EditarLivroService(LivroModel livro)
         {
-            return _livrosRepository.EditarLivroRepository(livro);
+            if (livro != null && !string.IsNullOrEmpty(livro.Titulo))
+            {
+
+                livro.Usuario = _usuarioRepository.GetById(livro.UsuarioId);
+
+                if (livro.Usuario == null)
+                {
+                    throw new InvalidOperationException("Usuário não encontrado. Certifique-se de fornecer um usuário válido.");
+                }
+                return _livrosRepository.EditarLivroRepository(livro);
+            }
+            else
+            {
+                throw new InvalidOperationException("Não foi possível adicionar o livro. Certifique-se de fornecer todos os dados necessários.");
+            }
         }
 
         public bool ExcluirLivroService(LivroModel livro)

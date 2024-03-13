@@ -29,6 +29,7 @@
                 <th scope="col">Telefone</th>
                 <th scope="col">Email</th>
                 <th scope="col">Ativo</th>
+                <th scope="col">Livros</th>
                 <th scope="col">Ùltima Atualização</th>
                 <th></th>
             </tr>
@@ -43,6 +44,7 @@
                      <td>@usuario.Phone</td>
                      <td>@usuario.Email</td>
                      <td>@usuario.IsActive</td>
+                     <td>@(usuario.Livros != null ? usuario.Livros.Count() : 0)</td>
                      <td>@usuario.DataUltimaAtualizacao</td>
                      <td>
                          <a class="btn btn-warning mx-2 p-1" asp-controller="Usuarios" asp-action="Editar" asp-route-id="@usuario.Id"><i class="bi bi-person-fill-gear"></i> Editar</a>

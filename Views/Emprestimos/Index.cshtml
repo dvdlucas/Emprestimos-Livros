@@ -28,7 +28,8 @@
                 <th scope="col">Recebedor</th>
                 <th scope="col">Fornecedor</th>
                 <th scope="col">Livro</th>
-                <th scope="col">Ùltima Atualização</th>
+                 <th scope="col">Data Empréstimo</th>
+                <th scope="col">Data Devolução</th>
                 <th></th>
             </tr>
         </thead>
@@ -38,9 +39,10 @@
                 @foreach (var emprestimo in Model)
                 {
                 <tr>
-                     <th scope="row">@emprestimo.Recebedor</th>
-                     <td>@emprestimo.Fornecedor</td>
-                     <td>@emprestimo.Livro</td>
+                     <th scope="row">@emprestimo.Recebedor.Name</th>
+                     <td>@emprestimo.Fornecedor.Name</td>
+                     <td>@emprestimo.Livro.Titulo</td>
+                       <td>@emprestimo.DataEmprestimo</td>
                      <td>@emprestimo.DataDevolucao</td>
                      <td>
                          <a class="btn btn-warning mx-2 p-1" asp-controller="Emprestimos" asp-action="Editar" asp-route-id="@emprestimo.Id"><i class="bi bi-pencil-square"></i> Editar</a>

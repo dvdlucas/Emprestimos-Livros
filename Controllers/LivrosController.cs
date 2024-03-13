@@ -40,7 +40,22 @@ namespace Emprestimos_Livros.Controllers
         [HttpGet]
         public IActionResult Editar(int? id)
         {
-           LivroModel livro = _livrosService.GetLivroServiceById(id);
+            if (id == null)
+            {
+                TempData["MensagemErro"] = "ID de livro inválido.";
+                return RedirectToAction("Index");
+            }
+
+            LivroModel livro = _livrosService.GetLivroServiceById(id);
+            var usuarios = _usuarioService.GetAllUsuarioService().ToList();
+            ViewBag.Usuarios = usuarios;
+
+            if (livro == null)
+            {
+                TempData["MensagemErro"] = "Livro não encontrado.";
+                return RedirectToAction("Index");
+            }
+
             return View(livro);
         }
 
@@ -50,13 +65,14 @@ namespace Emprestimos_Livros.Controllers
             try
             {
                 _livrosService.EditarLivroService(livro);
-                TempData["MensagemSucesso"] = "Edição Realizada com sucesso!";
-                RedirectToAction("Index");
-            } catch (Exception ex)
-            {
-                TempData["MensagemErro"] = "Deu merda " + ex;
+                TempData["MensagemSucesso"] = "Edição Realizada com Sucesso";
+                return RedirectToAction("Index");
             }
-            return View();
+            catch (InvalidOperationException ex)
+            {
+                TempData["MensagemErro"] = ex.Message;
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpGet]
@@ -73,10 +89,10 @@ namespace Emprestimos_Livros.Controllers
             {
                 _livrosService.ExcluirLivroService(livro);
                 TempData["MensagemSucesso"] = "Exclusão Realizada com Sucesso";
-                RedirectToAction("Index");
-            } catch (Exception ex)
+                return RedirectToAction("Index");
+            } catch (InvalidOperationException ex)
             {
-                TempData["MensagemErro"] = "Deu merda " + ex;
+                TempData["MensagemErro"] = ex.Message;
             }
             return View();
         }

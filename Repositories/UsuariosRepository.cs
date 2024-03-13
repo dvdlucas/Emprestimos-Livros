@@ -1,5 +1,6 @@
 ﻿using Emprestimos_Livros.Data;
 using Emprestimos_Livros.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Emprestimos_Livros.Repositories
 {
@@ -14,7 +15,8 @@ namespace Emprestimos_Livros.Repositories
 
         public List<UsuarioModel> GetAll()
         {
-            return _context.Usuarios.ToList();
+            return _context.Usuarios.Include(u => u.Livros).ToList();
+
         }
 
         public UsuarioModel Cadastrar(UsuarioModel user)
@@ -30,11 +32,13 @@ namespace Emprestimos_Livros.Repositories
             _context.SaveChanges();
             return user;
         }
-
         public UsuarioModel GetById(int? id)
         {
-            return _context.Usuarios.FirstOrDefault(x => x.Id == id);
+            return _context.Usuarios
+                .Include(u => u.Livros) 
+                .FirstOrDefault(x => x.Id == id);
         }
+
 
         public bool Excluir(UsuarioModel usuario)
         {

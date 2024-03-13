@@ -16,7 +16,7 @@ namespace Emprestimos_Livros.Models
         public int RecebedorId { get; set; }
         public UsuarioModel Recebedor { get; set; }
 
-        public DateTime DataEmprestimo { get; set; }
-        public DateTime? DataDevolucao { get; set; }
+        public DateTime DataEmprestimo { get; set; } = DateTime.Now;
+        public DateTime? DataDevolucao { get; set; } = DateTime.Now.AddDays(10);
     }
 }
