@@ -44,16 +44,14 @@ namespace Emprestimos_Livros.Controllers
         [HttpPost]
         public IActionResult Excluir(UsuarioModel usuario)
         {
-            if (usuario.Livros.Count > 0)
-            {
-
+            try{
                 _services.ExcluirUsuarioService(usuario);
                 TempData["MensagemSucesso"] = "Exclusão Realizada com Sucesso";
                 return RedirectToAction("Index");
             }
-            else
+            catch(Exception ex)
             {
-                TempData["MensagemErro"] = "Este usuário não pode ser excluído pois possui livros cadastrados";
+                TempData["MensagemErro"] = "Este usuário não pode ser excluído pois possui livros / Empréstimos cadastrados";
             }
             return RedirectToAction("Index");
         }

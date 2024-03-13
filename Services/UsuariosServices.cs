@@ -7,10 +7,12 @@ namespace Emprestimos_Livros.Services
     {
         private readonly UsuariosRepository _usuariosRepository;
         private readonly LivrosRepository _livrosRepository;
-        public UsuariosServices(UsuariosRepository usuariosRepository, LivrosRepository livrosRepository)
+        private readonly EmprestimosRepository _emprestimoRepository;
+        public UsuariosServices(UsuariosRepository usuariosRepository, LivrosRepository livrosRepository, EmprestimosRepository emprestimoRepository)
         { 
             _livrosRepository = livrosRepository;
             _usuariosRepository = usuariosRepository;
+            _emprestimoRepository = emprestimoRepository;
         }
 
         public UsuarioModel GetByIdService(int? id)
@@ -55,9 +57,14 @@ namespace Emprestimos_Livros.Services
         public bool ExcluirUsuarioService(UsuarioModel usuario)
         {
             LivroModel livros = (LivroModel)_livrosRepository.GetLivrosByIdUser(usuario.Id);
+            EmprestimosModelcs emprestimo = _emprestimoRepository.GetByIdUserRespository(usuario.Id);
             if (livros != null)
             {
                 throw new InvalidOperationException("Não foi possível Excluir o usuário pois ele possui livros cadastrados");
+            }
+            else if (emprestimo != null)
+            {
+                throw new InvalidOperationException("Não foi possível Excluir o usuário pois ele possui empréstimos cadastrados");
             }
             else
             {

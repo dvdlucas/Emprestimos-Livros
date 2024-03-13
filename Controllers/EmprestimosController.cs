@@ -29,7 +29,7 @@ namespace Emprestimos_Livros.Controllers
         public IActionResult Cadastrar()
         {
             var usuarios = _usuariosService.GetAllUsuarioService().ToList();
-            var livros = _livrosService.GetAllLivrosService().ToList();
+            var livros = _livrosService.GetLivrosDisponiveis().ToList();
             ViewBag.Usuarios = usuarios;
             ViewBag.Livros = livros;
             return View();
@@ -38,17 +38,16 @@ namespace Emprestimos_Livros.Controllers
         [HttpPost]
         public IActionResult Cadastrar(EmprestimosModelcs emprestimo)
         {
-            var resultado = _serviceEmprestimo.AdicionarEmprestimo(emprestimo, resultado);
-            if(resultado.Sucesso)
+            try
             {
-                _serviceEmprestimo.AdicionarEmprestimo(emprestimo, resultado);
+                _serviceEmprestimo.AdicionarEmprestimo(emprestimo);
                 TempData["MensagemSucesso"] = "Cadastro Realizado com Sucesso";
                 return RedirectToAction("Index");
             } 
-            else
+            catch(Exception ex)
             {
-                TempData["MensagemErro"] = ex;
-                return View();
+                TempData["MensagemErro"] = "Algum erro aconteceu "+ex;
+                return RedirectToAction("Index");
             }
         }
 

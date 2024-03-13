@@ -36,7 +36,7 @@
             <select class="form-control text-light" asp-for="LivroId" id="usuario">
                 @foreach (var livro in ViewBag.livros)
                 {
-                    <option value="@livro.Id">@livro.Titulo</option>
+                    <option value="@livro.Id">@livro.Titulo Proprietário -  @livro.Usuario.Name</option>
                 }
             </select>
             <span class="text-danger" asp-validation-for="LivroId"></span>

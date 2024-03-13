@@ -45,6 +45,14 @@ namespace Emprestimos_Livros.Repositories
         
         }
 
+        public EmprestimosModelcs GetByIdUserRespository(int? id)
+        {
+            return _context.Emprestimos
+                .Include(e => e.Fornecedor)
+                .Include(e => e.Recebedor)
+                .FirstOrDefault(x => x.Id == id);
+        }
+
 
     }
 }

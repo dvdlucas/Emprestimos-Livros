@@ -5,5 +5,7 @@ namespace Emprestimos_Livros.Models
         public string? RequestId { get; set; }
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+        public bool Sucesso { get; set; }
+        public string MensagemErro { get; set; }
     }
 }

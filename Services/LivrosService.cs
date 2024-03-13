@@ -69,26 +69,33 @@ namespace Emprestimos_Livros.Services
 
                 if (livro.Usuario == null)
                 {
-                    throw new InvalidOperationException("Usuário não encontrado. Certifique-se de fornecer um usuário válido.");
+                    throw new Exception("Usuário não encontrado. Certifique-se de fornecer um usuário válido.");
                 }
                 return _livrosRepository.EditarLivroRepository(livro);
             }
             else
             {
-                throw new InvalidOperationException("Não foi possível adicionar o livro. Certifique-se de fornecer todos os dados necessários.");
+                throw new Exception("Não foi possível adicionar o livro. Certifique-se de fornecer todos os dados necessários.");
             }
         }
 
         public bool ExcluirLivroService(LivroModel livro)
         {
-            if (livro.Emprestado)
+            LivroModel livroBanco = _livrosRepository.GetLivroRepositoryById(livro.Id);
+
+            if (livroBanco.Emprestado == true)
             {
-                throw new InvalidOperationException("Não foi possível excluir o livro pois ele esta emprestado.");
+                throw new Exception("Não foi possível excluir o livro pois ele esta emprestado.");
             } 
             else 
             {
-                return _livrosRepository.ExcluirLivroRepository(livro);
+                return _livrosRepository.ExcluirLivroRepository(livroBanco);
             } 
+        }
+
+        public List<LivroModel> GetLivrosDisponiveis()
+        {
+            return _livrosRepository.GetAllLivroDisponiveis();
         }
 
 

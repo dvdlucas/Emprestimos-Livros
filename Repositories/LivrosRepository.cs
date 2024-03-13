@@ -52,10 +52,17 @@ namespace Emprestimos_Livros.Repositories
             {
                 return _context.Livros.Where(p => p.UsuarioId == id).ToList();
             }
-
-            // Trate a situação em que o id não é válido
-            return null; // ou uma lista vazia, dependendo dos requisitos
+            return null;
         }
+
+        public List<LivroModel> GetAllLivroDisponiveis()
+        {
+            return _context.Livros
+                .Include(l => l.Usuario)
+                .Where(l => l.Emprestado == false)
+                .ToList();
+        }
+
 
     }
 }

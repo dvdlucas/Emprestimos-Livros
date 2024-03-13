@@ -24,15 +24,23 @@ namespace Emprestimos_Livros.Services
 
         public EmprestimosModelcs AdicionarEmprestimo(EmprestimosModelcs emprestimo)
         {
-            if (emprestimo.FornecedorId != null && emprestimo.RecebedorId != null && emprestimo.LivroId != null)
+            if (emprestimo.FornecedorId != emprestimo.RecebedorId)
             {
                 emprestimo.Fornecedor = _usuariosRepository.GetById(emprestimo.FornecedorId);
                 emprestimo.Recebedor = _usuariosRepository.GetById(emprestimo.RecebedorId);
                 emprestimo.Livro = _livrosRepository.GetLivroRepositoryById(emprestimo.LivroId);
 
-                return _emprestimosRepository.Adicionar(emprestimo);
+                if (emprestimo.Livro.UsuarioId == emprestimo.FornecedorId)
+                {
+                    emprestimo.Livro.Emprestado = true;
+                    return _emprestimosRepository.Adicionar(emprestimo);
+                }
+                else
+                {
+                    throw new Exception("Este livro não pertence a esse Fornecedor");
+                }
             }
-            throw new Exception("Não foi possivel localizar o emprestimo, contrate um adminstrador");
+            throw new Exception("Não foi possivel cadastrar emprestimo, Fornecedor deve ser diferente do Recebedor");
         }
 
         public EmprestimosModelcs GetByIdService(int? id)
@@ -55,7 +63,12 @@ namespace Emprestimos_Livros.Services
         public EmprestimosModelcs EditarEmprestimoService(EmprestimosModelcs emprestimo)
         {
             return _emprestimosRepository.Editar(emprestimo);
-  
+
+        }
+
+        public EmprestimosModelcs GetByIdUserService(int? id)
+        {
+            return _emprestimosRepository.GetByIdUserRespository(id);
         }
     }
 }

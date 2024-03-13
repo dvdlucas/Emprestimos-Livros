@@ -90,11 +90,11 @@ namespace Emprestimos_Livros.Controllers
                 _livrosService.ExcluirLivroService(livro);
                 TempData["MensagemSucesso"] = "Exclusão Realizada com Sucesso";
                 return RedirectToAction("Index");
-            } catch (InvalidOperationException ex)
+            } catch (Exception ex)
             {
                 TempData["MensagemErro"] = ex.Message;
             }
-            return View();
+            return RedirectToAction("Index");
         }
 
     }
