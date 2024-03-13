@@ -81,7 +81,14 @@ namespace Emprestimos_Livros.Services
 
         public bool ExcluirLivroService(LivroModel livro)
         {
-            return _livrosRepository.ExcluirLivroRepository(livro);
+            if (livro.Emprestado)
+            {
+                throw new InvalidOperationException("Não foi possível excluir o livro pois ele esta emprestado.");
+            } 
+            else 
+            {
+                return _livrosRepository.ExcluirLivroRepository(livro);
+            } 
         }
 
 

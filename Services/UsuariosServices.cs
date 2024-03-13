@@ -6,9 +6,10 @@ namespace Emprestimos_Livros.Services
     public class UsuariosServices
     {
         private readonly UsuariosRepository _usuariosRepository;
-
-        public UsuariosServices(UsuariosRepository usuariosRepository)
+        private readonly LivrosRepository _livrosRepository;
+        public UsuariosServices(UsuariosRepository usuariosRepository, LivrosRepository livrosRepository)
         { 
+            _livrosRepository = livrosRepository;
             _usuariosRepository = usuariosRepository;
         }
 
@@ -53,7 +54,15 @@ namespace Emprestimos_Livros.Services
 
         public bool ExcluirUsuarioService(UsuarioModel usuario)
         {
-            return _usuariosRepository.Excluir(usuario);
+            LivroModel livros = (LivroModel)_livrosRepository.GetLivrosByIdUser(usuario.Id);
+            if (livros != null)
+            {
+                throw new InvalidOperationException("Não foi possível Excluir o usuário pois ele possui livros cadastrados");
+            }
+            else
+            {
+                return _usuariosRepository.Excluir(usuario);
+            }
         }
 
         public UsuarioModel EditarUsuarioService(UsuarioModel usuario)

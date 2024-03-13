@@ -38,12 +38,14 @@ namespace Emprestimos_Livros.Controllers
         [HttpPost]
         public IActionResult Cadastrar(EmprestimosModelcs emprestimo)
         {
-            try
+            var resultado = _serviceEmprestimo.AdicionarEmprestimo(emprestimo, resultado);
+            if(resultado.Sucesso)
             {
-                _serviceEmprestimo.AdicionarEmprestimo(emprestimo);
+                _serviceEmprestimo.AdicionarEmprestimo(emprestimo, resultado);
                 TempData["MensagemSucesso"] = "Cadastro Realizado com Sucesso";
                 return RedirectToAction("Index");
-            } catch(Exception ex)
+            } 
+            else
             {
                 TempData["MensagemErro"] = ex;
                 return View();

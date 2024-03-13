@@ -47,12 +47,14 @@ namespace Emprestimos_Livros.Services
 
         public bool RemoverEmprestimoService(EmprestimosModelcs emprestimo)
         {
+            emprestimo.Livro = _livrosRepository.GetLivroRepositoryById(emprestimo.LivroId);
+            emprestimo.Livro.Emprestado = false;
             return _emprestimosRepository.Remover(emprestimo);
         }
 
         public EmprestimosModelcs EditarEmprestimoService(EmprestimosModelcs emprestimo)
         {
-               return _emprestimosRepository.Editar(emprestimo);
+            return _emprestimosRepository.Editar(emprestimo);
   
         }
     }

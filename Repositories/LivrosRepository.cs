@@ -45,5 +45,17 @@ namespace Emprestimos_Livros.Repositories
             _context.SaveChanges();
             return true;
         }
+
+        public IEnumerable<LivroModel> GetLivrosByIdUser(int? id)
+        {
+            if (id.HasValue && id > 0)
+            {
+                return _context.Livros.Where(p => p.UsuarioId == id).ToList();
+            }
+
+            // Trate a situação em que o id não é válido
+            return null; // ou uma lista vazia, dependendo dos requisitos
+        }
+
     }
 }
